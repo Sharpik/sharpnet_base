@@ -32,6 +32,17 @@ minetest.register_craft( {
  	},
 })
 
+for i = 1, 5 do
+	minetest.register_craft( {
+		output = "default:dirt_with_grass",
+		type = "shapeless",
+		recipe = {
+			"default:grass_" .. i,
+			"default:dirt",
+		},
+	})
+end
+
 minetest.register_craft( {
  	output = "default:dirt_with_dry_grass",
  	type = "shapeless",
@@ -39,6 +50,19 @@ minetest.register_craft( {
  		"default:acacia_leaves",
 		"default:dirt",
  	},
+})
+
+-- Dirt
+minetest.register_craft( {
+	output = "default:dirt 8",
+	recipe = {
+		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"},
+		{"default:dry_dirt", "bucket:bucket_water", "default:dry_dirt"},
+		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"}
+	},
+	replacements = {
+		{"bucket:bucket_water", "bucket:bucket_empty"}
+	}
 })
 
 -- Wheet to seeds
@@ -73,9 +97,8 @@ if farming and farming.mod == "redo" then
 
 end
  
- -- More trees + Technics mods recipes
- if (minetest.get_modpath("moretrees") ~= nil) and (minetest.get_modpath("technic") ~= nil) then
- 
+ -- Technics mods recipes
+ if (minetest.get_modpath("moretrees") ~= nil) and technic and (minetest.get_modpath("technic") ~= nil) then
 	minetest.register_craft({
 		output = "technic:raw_latex 2",
 		type = "cooking",
@@ -84,7 +107,12 @@ end
 	})
     
     technic.register_extractor_recipe({ input = {"moretrees:rubber_tree_trunk"}, output = {"technic:raw_latex 4"}})
+	
+	technic.register_grinder_recipe({ input = {"default:dirt"}, output = {"default:clay_lump 4"}})
 
+ end
+ if (minetest.get_modpath("poisonivy") ~= nil) and (minetest.get_modpath("dryplants") ~= nil) and technic and (minetest.get_modpath("technic") ~= nil) then
+	technic.register_grinder_recipe({ input = {"poisonivy:sproutling"}, output = {"dryplants:grass"}})
  end
  
   -- Ethereal mods recipes
@@ -124,6 +152,18 @@ end
 		"default:dirt",
  	},
  	})
+	
+	minetest.register_craft({
+	output = "default:dirt 8",
+	recipe = {
+		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"},
+		{"default:dry_dirt", "bucket:bucket_water", "default:dry_dirt"},
+		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"}
+	},
+	replacements = {
+		{"bucket:bucket_water", "bucket:bucket_empty"}
+	}
+})
 
  end
  
