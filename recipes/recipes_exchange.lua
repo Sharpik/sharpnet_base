@@ -109,6 +109,7 @@ end
     technic.register_extractor_recipe({ input = {"moretrees:rubber_tree_trunk"}, output = {"technic:raw_latex 4"}})
 	
 	technic.register_grinder_recipe({ input = {"default:dirt"}, output = {"default:clay_lump 4"}})
+	technic.register_grinder_recipe({ input = {"default:dry_dirt"}, output = {"default:clay_lump 4"}})
 
  end
  if (minetest.get_modpath("poisonivy") ~= nil) and (minetest.get_modpath("dryplants") ~= nil) and technic and (minetest.get_modpath("technic") ~= nil) then
