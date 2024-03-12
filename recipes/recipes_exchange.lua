@@ -1,3 +1,5 @@
+local enable_tnt = minetest.settings:get_bool("enable_tnt")
+
 -- Recipes
 -- minetest.register_craft( {
 -- 	output = "basic_materials:copper_wire 2",
@@ -47,8 +49,35 @@ minetest.register_craft( {
  	output = "default:dirt_with_dry_grass",
  	type = "shapeless",
  	recipe = {
+ 		"default:dry_grass_1",
+		"default:dirt",
+ 	},
+})
+
+minetest.register_craft( {
+ 	output = "default:dirt_with_dry_grass",
+ 	type = "shapeless",
+ 	recipe = {
  		"default:acacia_leaves",
 		"default:dirt",
+ 	},
+})
+
+minetest.register_craft( {
+ 	output = "default:dry_dirt_with_dry_grass",
+ 	type = "shapeless",
+ 	recipe = {
+ 		"default:dry_grass_1",
+		"default:dry_dirt",
+ 	},
+})
+
+minetest.register_craft( {
+ 	output = "default:dry_dirt_with_dry_grass",
+ 	type = "shapeless",
+ 	recipe = {
+ 		"default:acacia_leaves",
+		"default:dry_dirt",
  	},
 })
 
@@ -109,7 +138,6 @@ end
     technic.register_extractor_recipe({ input = {"moretrees:rubber_tree_trunk"}, output = {"technic:raw_latex 4"}})
 	
 	technic.register_grinder_recipe({ input = {"default:dirt"}, output = {"default:clay_lump 4"}})
-	technic.register_grinder_recipe({ input = {"default:dry_dirt"}, output = {"default:clay_lump 4"}})
 
  end
  if (minetest.get_modpath("poisonivy") ~= nil) and (minetest.get_modpath("dryplants") ~= nil) and technic and (minetest.get_modpath("technic") ~= nil) then
@@ -155,16 +183,16 @@ end
  	})
 	
 	minetest.register_craft({
-	output = "default:dirt 8",
-	recipe = {
-		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"},
-		{"default:dry_dirt", "bucket:bucket_water", "default:dry_dirt"},
-		{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"}
-	},
-	replacements = {
-		{"bucket:bucket_water", "bucket:bucket_empty"}
-	}
-})
+		output = "default:dirt 8",
+		recipe = {
+			{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"},
+			{"default:dry_dirt", "bucket:bucket_water", "default:dry_dirt"},
+			{"default:dry_dirt", "default:dry_dirt", "default:dry_dirt"}
+		},
+		replacements = {
+			{"bucket:bucket_water", "bucket:bucket_empty"}
+		}
+	})
 
  end
  
@@ -181,3 +209,63 @@ end
  	})
 	
  end
+
+ --  poisonivy mod
+if (minetest.get_modpath("poisonivy") ~= nil) then
+
+minetest.register_craft({
+	output = "default:dry_grass_2 2",
+	type = "cooking",
+	recipe = "poisonivy:seedling",
+	cooktime = 1
+})
+minetest.register_craft({
+	output = "default:dry_grass_2 2",
+	type = "cooking",
+	recipe = "poisonivy:sproutling",
+	cooktime = 1
+})
+minetest.register_craft({
+	output = "default:dry_grass_2 2",
+	type = "cooking",
+	recipe = "poisonivy:climbing",
+	cooktime = 1
+})
+
+end
+
+ --  Water Life
+if (minetest.get_modpath("water_life") ~= nil) then
+	--water_life:antiserum
+	minetest.register_craft({
+		output = "water_life:antiserum",
+		recipe = {
+			{"default:dry_grass_1", "default:grass_1", "default:junglegrass"}
+		}
+	})
+end
+
+-- TNR Recipe replace
+if enable_tnt then
+--[[ --]]
+	minetest.clear_craft({output = "tnt:tnt_stick"})
+	minetest.clear_craft({output = "tnt:tnt"})
+
+	minetest.register_craft({
+		output = "tnt:tnt_stick 19",
+		recipe = {
+			{"tnt:gunpowder", "", "tnt:gunpowder"},
+			{"tnt:gunpowder", "default:paper", "tnt:gunpowder"},
+			{"tnt:gunpowder", "", "tnt:gunpowder"},
+		}
+	})
+	
+	minetest.register_craft({
+		output = "tnt:tnt 6",
+		recipe = {
+			{"tnt:tnt_stick", "tnt:tnt_stick", "tnt:tnt_stick"},
+			{"tnt:tnt_stick", "tnt:tnt_stick", "tnt:tnt_stick"},
+			{"tnt:tnt_stick", "tnt:tnt_stick", "tnt:tnt_stick"}
+		}
+	})
+end

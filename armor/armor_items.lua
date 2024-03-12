@@ -12,7 +12,7 @@ if minetest.get_modpath("3d_armor") then
     -- })
 
     armor:register_armor("sharpnet_base:chestplate_tshirt_black", {
-        description = S("T-shirt (black)"),
+        description = "T-shirt (black)",
         inventory_image = "sharpnet_base_chestplate_tshirt_black_inv.png",
 
         groups = {armor_torso=1, armor_heal=2, armor_use=100, armor_fire=0},
