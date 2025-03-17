@@ -10,8 +10,30 @@ minetest.register_craft({
 })
 
 --throwel
+minetest.register_craft({
+	output = "sharpnet_base:trowel",
+	recipe = {
+		{"", "group:stick", ""},
+		{"default:steel_ingot", "default:steel_ingot", ""}
+	}
+})
+minetest.register_craft({
+	output = "sharpnet_base:trowel_filled",
+	recipe = {
+		{"sharpnet_base:trowel", "group:clay"}
+	}
+})
 
 --painter
+minetest.register_craft({
+	output = "sharpnet_base:painter",
+	recipe = {
+		{"", "group:wool", ""},
+		{"", "group:stick", ""},
+		{"group:stick", "", ""}
+	}
+})
+
 for _, row in ipairs(dye_colors_16) do
 	local dye_name = row[1]
 	local dye_desc = row[2]
