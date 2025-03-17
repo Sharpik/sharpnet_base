@@ -322,12 +322,9 @@ local function painter_on_use(itemstack, color, user, pointed_thing, uses)
 	--minetest.chat_send_player(user:get_player_name()," target node: " .. target_node.name .. " pt: " .. pos.x .. " ".. pos.z .. "" .. pos.y )
 	
 	if string.find(target_node.name, "sharpnet_base:brick_trowed_") then
-		if color == "black" then
-			painter_paint(target_node, "sharpnet_base:brick_trowed_black", user, itemstack, pos, uses)
-		end
-		if color == "brown" then
-			painter_paint(target_node, "sharpnet_base:brick_trowed_brown", user, itemstack, pos, uses)
-		end
+		painter_paint(target_node, "sharpnet_base:brick_trowed_"..color, user, itemstack, pos, uses)
+	elseif string.find(target_node.name, "sharpnet_base:cobble_trowed_") then
+		painter_paint(target_node, "sharpnet_base:cobble_trowed_"..color, user, itemstack, pos, uses)
 	end
 	
 	return itemstack
@@ -336,19 +333,17 @@ end
 -- painter tool register
 minetest.register_tool("sharpnet_base:painter", {
 	description = "Painter",
-	inventory_image = "sharpnet_item_Painter.png",
+	inventory_image = "sharpnet_item_painter.png",
 })
-minetest.register_tool("sharpnet_base:painter_black", {
-	description = "Painter - Black",
-	inventory_image = "sharpnet_item_Painter_Black.png",
-	on_use = function(itemstack, user, pointed_thing)
-		return painter_on_use(itemstack, "black", user, pointed_thing, 64)
-	end,
-})
-minetest.register_tool("sharpnet_base:painter_brown", {
-	description = "Painter - Brawn",
-	inventory_image = "sharpnet_item_Painter_Brown.png",
-	on_use = function(itemstack, user, pointed_thing)
-		return painter_on_use(itemstack, "brown", user, pointed_thing, 64)
-	end,
-})
+for _, row in ipairs(dye_colors_16) do
+	local dye_name = row[1]
+	local dye_desc = row[2]
+	minetest.register_tool("sharpnet_base:painter_"..dye_name, {
+		description = "Painter - "..dye_desc,
+		inventory_image = "sharpnet_item_painter_"..dye_name..".png",
+		on_use = function(itemstack, user, pointed_thing)
+			return painter_on_use(itemstack, dye_name, user, pointed_thing, 64)
+		end,
+	})
+end
+

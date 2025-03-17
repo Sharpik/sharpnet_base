@@ -18,35 +18,33 @@ minetest.register_node("sharpnet_base:money_node_1000E", {
 
 --- Trowed nodes
 -- Bricks
-minetest.register_node("sharpnet_base:brick_trowed_brown", {
-	description = "Brick Block Trowed - Brown",
-	paramtype2 = "facedir",
-	place_param2 = 0,
-	tiles = {"sharpnet_node_trowel_wall_brown.png",},
-	drop = "default:brick",
-	is_ground_content = false,
-	groups = {cracky = 3},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_node("sharpnet_base:brick_trowed_black", {
-	description = "Brick Block Trowed - Black",
-	paramtype2 = "facedir",
-	place_param2 = 0,
-	tiles = {"sharpnet_node_trowel_wall_black.png",},
-	drop = "default:brick",
-	is_ground_content = false,
-	groups = {cracky = 3},
-	sounds = default.node_sound_stone_defaults(),
-})
+for _, row in ipairs(dye_colors_16) do
+	local dye_name = row[1]
+	local dye_desc = row[2]
+	minetest.register_node("sharpnet_base:brick_trowed_"..dye_name, {
+		description = "Brick Block Trowed - "..dye_desc,
+		paramtype2 = "facedir",
+		place_param2 = 0,
+		tiles = {"sharpnet_node_trowel_wall_"..dye_name..".png",},
+		drop = "default:brick",
+		is_ground_content = false,
+		groups = {cracky = 3},
+		sounds = default.node_sound_stone_defaults(),
+	})
+end
 -- Coble
-minetest.register_node("sharpnet_base:cobble_trowed_brown", {
-	description = "Cobblestone Trowed - Brown",
-	paramtype2 = "facedir",
-	place_param2 = 0,
-	tiles = {"sharpnet_node_trowel_wall_brown.png"},
-	drop = "default_cobble",
-	is_ground_content = false,
-	groups = {cracky = 3, stone = 2},
-	sounds = default.node_sound_stone_defaults()
-})
+for _, row in ipairs(dye_colors_16) do
+	local dye_name = row[1]
+	local dye_desc = row[2]
+	minetest.register_node("sharpnet_base:cobble_trowed_"..dye_name, {
+		description = "Cobblestone Trowed - "..dye_desc,
+		paramtype2 = "facedir",
+		place_param2 = 0,
+		tiles = {"sharpnet_node_trowel_wall_"..dye_name..".png"},
+		drop = "default_cobble",
+		is_ground_content = false,
+		groups = {cracky = 3, stone = 2},
+		sounds = default.node_sound_stone_defaults()
+	})
+end
 

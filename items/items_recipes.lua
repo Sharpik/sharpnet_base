@@ -12,18 +12,16 @@ minetest.register_craft({
 --throwel
 
 --painter
-minetest.register_craft({
-	output = "sharpnet_base:painter_black",
-	recipe = {
-		{"sharpnet_base:painter","dye:black"}
-	}
-})
-minetest.register_craft({
-	output = "sharpnet_base:painter_brown",
-	recipe = {
-		{"sharpnet_base:painter","dye:brown"}
-	}
-})
+for _, row in ipairs(dye_colors_16) do
+	local dye_name = row[1]
+	local dye_desc = row[2]
+	minetest.register_craft({
+		output = "sharpnet_base:painter_"..dye_name,
+		recipe = {
+			{"sharpnet_base:painter","dye:"..dye_name}
+		}
+	})
+end
 
 -- Cloth
 if farming and farming.mod == "redo" then

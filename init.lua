@@ -1,5 +1,6 @@
 --init
 local MP = minetest.get_modpath(minetest.get_current_modname())
+dofile(MP .. "/sh_global.lua")
 dofile(MP .. "/items/items.lua")
 dofile(MP .. "/items/items_recipes.lua")
 dofile(MP .. "/armor/armor_items.lua")
