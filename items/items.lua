@@ -4,13 +4,13 @@
 
 minetest.register_craftitem("sharpnet_base:cloth_white", {
 	description = "Cloth (white)",
-	inventory_image = "sharpnet_item_cloth_white.png",
+	inventory_image = "sharpnet_cloth_white.png",
 	groups = { crumbly = 3 },
 })
 
 minetest.register_craftitem("sharpnet_base:cloth_black", {
 	description = "Cloth (black)",
-	inventory_image = "sharpnet_item_cloth_black.png",
+	inventory_image = "sharpnet_cloth_black.png",
 	groups = { crumbly = 3 },
 })
 
@@ -20,7 +20,7 @@ minetest.register_craftitem("sharpnet_base:cloth_black", {
 	
 	minetest.register_tool("sharpnet_base:pick_carbon_steel", {
 	description = "Carbon Steel Pickaxe",
-	inventory_image = "carbonsteel_pickaxe.png",
+	inventory_image = "sharpnet_item_carbonsteel_pickaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
 		max_drop_level=1,
@@ -35,8 +35,8 @@ minetest.register_craftitem("sharpnet_base:cloth_black", {
 
 	minetest.register_tool("sharpnet_base:shovel_carbon_steel", {
 		description = "Carbon Steel Shovel",
-		inventory_image = "carbonsteel_shovel.png",
-		wield_image = "carbonsteel_shovel.png^[transformR90",
+		inventory_image = "sharpnet_item_carbonsteel_shovel.png",
+		wield_image = "sharpnet_item_carbonsteel_shovel.png^[transformR90",
 		tool_capabilities = {
 			full_punch_interval = 1.1,
 			max_drop_level=1,
@@ -51,7 +51,7 @@ minetest.register_craftitem("sharpnet_base:cloth_black", {
 
 	minetest.register_tool("sharpnet_base:axe_carbon_steel", {
 		description = "Carbon Steel Axe",
-		inventory_image = "carbonsteel_axe.png",
+		inventory_image = "sharpnet_item_carbonsteel_axe.png",
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=1,
@@ -66,7 +66,7 @@ minetest.register_craftitem("sharpnet_base:cloth_black", {
 
 	minetest.register_tool("sharpnet_base:sword_carbon_steel", {
 		description = "Carbon Steel Sword",
-		inventory_image = "carbonsteel_sword.png",
+		inventory_image = "sharpnet_item_carbonsteel_sword.png",
 		tool_capabilities = {
 			full_punch_interval = 0.8,
 			max_drop_level=1,
@@ -77,43 +77,6 @@ minetest.register_craftitem("sharpnet_base:cloth_black", {
 		},
 		sound = {breaks = "default_tool_breaks"},
 		groups = {sword = 1}
-	})
-
-	--Recipes
-	minetest.register_craft({
-		output = "sharpnet_base:pick_carbon_steel",
-		recipe = {
-			{"technic:carbon_steel_ingot", "technic:carbon_steel_ingot", "technic:carbon_steel_ingot"},
-			{"", "group:stick", ""},
-			{"", "group:stick", ""}
-		}
-	})
-	
-	minetest.register_craft({
-		output = "sharpnet_base:shovel_carbon_steel",
-		recipe = {
-			{"technic:carbon_steel_ingot"},
-			{"group:stick"},
-			{"group:stick"}
-		}
-	})
-	
-	minetest.register_craft({
-		output = "sharpnet_base:axe_carbon_steel",
-		recipe = {
-			{"technic:carbon_steel_ingot", "technic:carbon_steel_ingot"},
-			{"technic:carbon_steel_ingot", "group:stick"},
-			{"", "group:stick"}
-		}
-	})
-
-	minetest.register_craft({
-		output = "sharpnet_base:sword_carbon_steel",
-		recipe = {
-			{"technic:carbon_steel_ingot"},
-			{"technic:carbon_steel_ingot"},
-			{"group:stick"}
-		}
 	})
 
  end
@@ -256,17 +219,136 @@ end
 -- area sickle tool register
 minetest.register_tool("sharpnet_base:sickle", {
 	description = "Area sickle",
-	inventory_image = "dryplants_sickle.png",
+	inventory_image = "sharpnet_item_sickle.png",
 	on_use = function(itemstack, user, pointed_thing)
 		return sickle_on_use(itemstack, user, pointed_thing, 560)
 	end,
 })
--- area sickle tool recipe
-minetest.register_craft({
-	output = "sharpnet_base:sickle",
-	recipe = {
-		{"default:steel_ingot",""},
-		{"", "default:stick"},
-		{"default:stick",""}
-	}
+
+
+-- trowel function
+local function trowel_on_use(itemstack, user, pointed_thing, uses)
+	local pt = pointed_thing
+
+	-- check if pointing at a node
+	if not pt then
+		return
+	end
+	if pt.type ~= "node" then
+		return
+	end
+
+	local pos = {x=pt.under.x, y=pt.under.y, z=pt.under.z}
+	local target_node = minetest.get_node_or_nil(pos)
+
+	-- return if node is not registered
+	if not minetest.registered_nodes[target_node.name] then
+		return
+	end
+
+	--debug
+	--minetest.chat_send_player(user:get_player_name()," target node: " .. target_node.name .. " pt: " .. pos.x .. " ".. pos.z .. "" .. pos.y )
+	
+	-- List of trowable nodes
+	if target_node.name == "default:brick" then
+		minetest.set_node(pos, {name = "sharpnet_base:brick_trowed_brown"})
+		minetest.sound_play("default_dig_crumbly", {
+			pos,
+			gain = 0.5,
+		})
+		itemstack:add_wear(65535/(uses-1))
+		
+	end
+	
+	if (target_node.name == "default:cobble") or (target_node.name == "default:stone") then
+		minetest.set_node(pos, {name = "sharpnet_base:cobble_trowed_brown"})
+		minetest.sound_play("default_dig_crumbly", {
+			pos,
+			gain = 0.5,
+		})
+		itemstack:add_wear(65535/(uses-1))
+		
+	end
+	
+	return itemstack
+end
+
+-- trowel tool register
+minetest.register_tool("sharpnet_base:trowel", {
+	description = "Trowel",
+	inventory_image = "sharpnet_item_trowel.png",
+	on_use = function(itemstack, user, pointed_thing)
+		return trowel_on_use(itemstack, user, pointed_thing, 64)
+	end,
+})
+
+-- painter functions
+local function painter_paint(target_node, to_node, user, itemstack, pos, uses)
+--debug
+--minetest.chat_send_player(user:get_player_name(),"itemstack:get_wear(): " .. itemstack:get_wear() .. " uses: " .. uses)
+		minetest.set_node(pos, {name = to_node})
+		minetest.sound_play("default_dig_crumbly", {
+			pos,
+			gain = 0.5,
+		})
+		if ((itemstack:get_wear()+uses) >= 65535) then
+			itemstack:replace("sharpnet_base:painter")
+		else
+			itemstack:add_wear(65535/(uses-1))
+		end
+	return itemstack
+end
+
+local function painter_on_use(itemstack, color, user, pointed_thing, uses)
+	local pt = pointed_thing
+
+	-- check if pointing at a node
+	if not pt then
+		return
+	end
+	if pt.type ~= "node" then
+		return
+	end
+
+	local pos = {x=pt.under.x, y=pt.under.y, z=pt.under.z}
+	local target_node = minetest.get_node_or_nil(pos)
+
+	-- return if node is not registered
+	if not minetest.registered_nodes[target_node.name] then
+		return
+	end
+
+	--debug
+	--minetest.chat_send_player(user:get_player_name()," target node: " .. target_node.name .. " pt: " .. pos.x .. " ".. pos.z .. "" .. pos.y )
+	
+	if string.find(target_node.name, "sharpnet_base:brick_trowed_") then
+		if color == "black" then
+			painter_paint(target_node, "sharpnet_base:brick_trowed_black", user, itemstack, pos, uses)
+		end
+		if color == "brown" then
+			painter_paint(target_node, "sharpnet_base:brick_trowed_brown", user, itemstack, pos, uses)
+		end
+	end
+	
+	return itemstack
+end
+
+-- painter tool register
+minetest.register_tool("sharpnet_base:painter", {
+	description = "Painter",
+	inventory_image = "sharpnet_item_Painter.png",
+})
+minetest.register_tool("sharpnet_base:painter_black", {
+	description = "Painter - Black",
+	inventory_image = "sharpnet_item_Painter_Black.png",
+	on_use = function(itemstack, user, pointed_thing)
+		return painter_on_use(itemstack, "black", user, pointed_thing, 64)
+	end,
+})
+minetest.register_tool("sharpnet_base:painter_brown", {
+	description = "Painter - Brawn",
+	inventory_image = "sharpnet_item_Painter_Brown.png",
+	on_use = function(itemstack, user, pointed_thing)
+		return painter_on_use(itemstack, "brown", user, pointed_thing, 64)
+	end,
 })
