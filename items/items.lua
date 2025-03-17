@@ -257,7 +257,7 @@ local function trowel_on_use(itemstack, user, pointed_thing, uses)
 			gain = 0.5,
 		})
 		if ((itemstack:get_wear()+uses) >= 65535) then
-			itemstack:replace("sharpnet_base:trowel_filled")
+			itemstack:replace("sharpnet_base:trowel")
 		else
 			itemstack:add_wear(65535/(uses-1))
 		end
@@ -271,7 +271,7 @@ local function trowel_on_use(itemstack, user, pointed_thing, uses)
 			gain = 0.5,
 		})
 		if ((itemstack:get_wear()+uses) >= 65535) then
-			itemstack:replace("sharpnet_base:trowel_filled")
+			itemstack:replace("sharpnet_base:trowel")
 		else
 			itemstack:add_wear(65535/(uses-1))
 		end
@@ -287,7 +287,7 @@ minetest.register_tool("sharpnet_base:trowel", {
 	inventory_image = "sharpnet_item_trowel.png"
 })
 minetest.register_tool("sharpnet_base:trowel_filled", {
-	description = "Trowel",
+	description = "Trowel - filled",
 	inventory_image = "sharpnet_item_trowel.png",
 	on_use = function(itemstack, user, pointed_thing)
 		return trowel_on_use(itemstack, user, pointed_thing, 64)

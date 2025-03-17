@@ -41,10 +41,9 @@ for _, row in ipairs(dye_colors_16) do
 		paramtype2 = "facedir",
 		place_param2 = 0,
 		tiles = {"sharpnet_node_trowel_wall_"..dye_name..".png"},
-		drop = "default_cobble",
+		drop = "default:cobble",
 		is_ground_content = false,
 		groups = {cracky = 3, stone = 2},
 		sounds = default.node_sound_stone_defaults()
 	})
 end
-

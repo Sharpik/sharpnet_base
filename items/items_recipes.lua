@@ -20,7 +20,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "sharpnet_base:trowel_filled",
 	recipe = {
-		{"sharpnet_base:trowel", "group:clay"}
+		{"sharpnet_base:trowel", "default:clay_lump"}
 	}
 })
 
