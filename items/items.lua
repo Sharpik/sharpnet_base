@@ -334,9 +334,32 @@ local function painter_on_use(itemstack, color, user, pointed_thing, uses)
 	--minetest.chat_send_player(user:get_player_name()," target node: " .. target_node.name .. " pt: " .. pos.x .. " ".. pos.z .. "" .. pos.y )
 	
 	if string.find(target_node.name, "sharpnet_base:brick_trowed_") then
-		painter_paint(target_node, "sharpnet_base:brick_trowed_"..color, user, itemstack, pos, uses)
+		painter_paint(target_node, "sharpnet_base:brick_trowed_" .. color, user, itemstack, pos, uses)
 	elseif string.find(target_node.name, "sharpnet_base:cobble_trowed_") then
-		painter_paint(target_node, "sharpnet_base:cobble_trowed_"..color, user, itemstack, pos, uses)
+		painter_paint(target_node, "sharpnet_base:cobble_trowed_" .. color, user, itemstack, pos, uses)
+	-- Streets mod support
+	elseif (minetest.get_modpath("streets") ~= nil) then
+		if string.find(target_node.name, "streets:asphalt") then
+			if (color == "white") then
+				painter_paint(target_node, "streets:sidewalk", user, itemstack, pos, uses)
+			elseif (color == "blue") then
+				painter_paint(target_node, "streets:asphalt_blue", user, itemstack, pos, uses)
+			elseif (color == "red") then
+				painter_paint(target_node, "streets:asphalt_red", user, itemstack, pos, uses)
+			end
+		elseif string.find(target_node.name, "streets:asphalt_blue") then
+			if (color == "black") then
+				painter_paint(target_node, "streets:asphalt", user, itemstack, pos, uses)
+			elseif (color == "red") then
+				painter_paint(target_node, "streets:asphalt_red", user, itemstack, pos, uses)
+			end
+		elseif string.find(target_node.name, "streets:asphalt_red") then
+			if (color == "black") then
+				painter_paint(target_node, "streets:asphalt", user, itemstack, pos, uses)
+			elseif (color == "blue") then
+				painter_paint(target_node, "streets:asphalt_blue", user, itemstack, pos, uses)
+			end
+		end
 	end
 	
 	return itemstack
