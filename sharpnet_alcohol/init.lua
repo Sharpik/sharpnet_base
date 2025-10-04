@@ -1,0 +1,9 @@
+--init
+local MP = minetest.get_modpath(minetest.get_current_modname())
+dofile(MP .. "/sh_global.lua")
+dofile(MP .. "/items/items_resources.lua")
+dofile(MP .. "/items/items_alcohols.lua")
+dofile(MP .. "/nodes/nodes_alcohols_functions.lua")
+dofile(MP .. "/nodes/nodes_alcohols.lua")
+dofile(MP .. "/recipes/recipes_alcohols.lua")
+dofile(MP .. "/recipes/recipes_alcohol_items.lua.lua")
