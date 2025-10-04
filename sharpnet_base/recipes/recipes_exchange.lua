@@ -19,8 +19,37 @@ local enable_tnt = minetest.settings:get_bool("enable_tnt")
 -- 	},
 -- })
 
+
+-- TODO ----------------------------------------------------
+--[[
+
+
+
+]]
+-- TODO - END ---------------------------------------------- 
+
 -- aliases
 --minetest.register_alias("sharpnet:block1",           "sharpnet:block1.0")
+
+-- Test tube
+minetest.register_craft( {
+ 	output = "sharpnet_base:test_tube_empty 12",
+ 	recipe = {
+ 		{ "", "default:glass", "" },
+ 		{ "", "default:glass", "" },
+		{ "", "default:glass", "" }
+ 	}
+})
+
+-- Bottle Empty
+minetest.register_craft( {
+ 	output = "sharpnet_base:bottle_empty 12",
+ 	recipe = {
+ 		{ "", "default:wood", "" },
+ 		{ "default:glass", "default:glass", "default:glass" },
+		{ "default:glass", "default:glass", "default:glass" }
+ 	}
+})
 
 -- Food
 

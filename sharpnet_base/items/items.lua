@@ -1,5 +1,19 @@
 -- items
 
+-- Drinks Items
+-- Test Tube
+minetest.register_craftitem("sharpnet_base:test_tube_empty", {
+	description = "Test Tube Empty",
+	inventory_image = "sh_test_tube_empty.png",
+	groups = {}
+})
+-- Bottle Empty
+minetest.register_craftitem("sharpnet_base:bottle_empty", {
+	description = "Bottle Empty",
+	inventory_image = "sh_bottle_empty.png",
+	groups = {}
+})
+
 -- Cloth
 
 minetest.register_craftitem("sharpnet_base:cloth_white", {
