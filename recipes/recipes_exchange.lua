@@ -94,6 +94,24 @@ minetest.register_craft( {
 	}
 })
 
+-- Clay
+minetest.register_craft( {
+ 	output = "default:clay",
+ 	type = "shapeless",
+ 	recipe = {
+ 		"default:gravel",
+		"default:dry_dirt",
+ 	},
+})
+minetest.register_craft( {
+ 	output = "default:clay",
+ 	type = "shapeless",
+ 	recipe = {
+ 		"default:gravel",
+		"default:dirt",
+ 	},
+})
+
 -- Wheet to seeds
 if farming then
 
@@ -146,6 +164,16 @@ end
  
   -- Ethereal mods recipes
  if (minetest.get_modpath("ethereal") ~= nil) then
+ 
+	 -- Clay
+	minetest.register_craft( {
+		output = "default:clay",
+		type = "shapeless",
+		recipe = {
+			"default:gravel",
+			"ethereal:dry_dirt",
+		},
+	})
  
 	minetest.register_craft( {
  	output = "ethereal:charcoal_lump",
